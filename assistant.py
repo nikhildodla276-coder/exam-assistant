@@ -12,3 +12,10 @@ import fitz
 from dotenv import load_dotenv
 
 load_dotenv()
+
+def extract_text(filepath):
+    pdf = fitz.open(filepath)
+    text = ""
+    for page in pdf:
+        text+= page.get_text()
+    return text
