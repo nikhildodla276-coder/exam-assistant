@@ -6,10 +6,12 @@ Purpose: Read PDF study material notes and generates priotrized exam notes
 
 # Standard libraries
 import sys
+import os
 
 # Third-Party libraries
 import fitz
 from dotenv import load_dotenv
+from groq import Groq
 
 load_dotenv()
 
@@ -47,3 +49,12 @@ Study Material:
 """
     full_text = instructions + text
     return full_text
+
+
+def get_notes(prompt):
+    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+    response = client.chat.completions.create(
+        model="llama3-8b-8192",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return response.choices[0].message.content
