@@ -51,10 +51,24 @@ Study Material:
     return full_text
 
 
+
 def get_notes(prompt):
     client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-    response = client.chat.completions.create(
-        model="llama3-8b-8192",
-        messages=[{"role": "user", "content": prompt}]
-    )
+    response = client.chat.completions.create(model="llama3-8b-8192", messages=[{"role": "user", "content": prompt}] )
     return response.choices[0].message.content
+
+
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: python assistant.py <pdf_file>")
+        sys.exit(1)
+    pdf_notes = sys.argv[1]
+    extracted_text = extract_text(pdf_notes)
+    combined_prompt = build_prompt(extracted_text)
+    exam_notes = get_notes(combined_prompt)
+    print(exam_notes)
+
+
+if __name__ == "__main__":
+    main()
+ 
