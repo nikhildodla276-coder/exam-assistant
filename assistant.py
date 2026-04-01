@@ -24,7 +24,7 @@ def extract_text(filepath):
 
 
 def build_prompt(text):
-    instructions = """you are an exam preparation assistant for a university student. 
+    instructions = """you are an exam preparation assistant for a university student.
     Analyze the provided study material and respond in this exact structure:
 1. OVERVIEW
 provide a brief summary of the PDF. list each main topic and subtopic with one line of explanation each.
@@ -71,4 +71,3 @@ def main():
 
 if __name__ == "__main__":
     main()
- 
