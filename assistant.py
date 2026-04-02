@@ -16,6 +16,7 @@ from groq import Groq
 load_dotenv()
 
 def extract_text(filepath):
+    """Extract all text from a pdf and returns an string."""
     pdf = fitz.open(filepath)
     text = ""
     for page in pdf:
@@ -24,6 +25,7 @@ def extract_text(filepath):
 
 
 def build_prompt(text):
+    """Build instruction prompt combining guidelines and extracted text."""
     instructions = """you are an exam preparation assistant for a university student.
     Analyze the provided study material and respond in this exact structure:
 1. OVERVIEW
@@ -53,12 +55,17 @@ Study Material:
 
 
 def get_notes(prompt):
+    """Send notes to Groq LLM and return generated exam notes."""
     client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-    response = client.chat.completions.create(model="llama3-8b-8192", messages=[{"role": "user", "content": prompt}] )
+    response = client.chat.completions.create(
+        model="llama3-8b-8192",
+        messages=[{"role": "user", "content": prompt}]
+    )
     return response.choices[0].message.content
 
 
 def main():
+    """Main entry point - validate input, extract, prompt, and print notes."""
     if len(sys.argv) != 2:
         print("Usage: python assistant.py <pdf_file>")
         sys.exit(1)
