@@ -29,7 +29,33 @@ exam notes automatically.
 
 ## Project Status
 
-Currently in development. Core logic being built.
+Complete. Tested with real university exam PDFs.
+Pylint score: 10/10 
+
+---
+
+## Setup and Usage
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/nikhildodla276-coder/exam-assistant.git
+cd exam-assistant
+```
+### 2. Create virtual environment and install dependencies
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### 3. Create your .env file
+```
+GROQ_API_KEY=your_api_key_here
+```
+### 4. Run with a PDF
+```bash
+python assistant.py yourfile.pdf
+```
 
 ---
 
